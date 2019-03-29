@@ -1,0 +1,33 @@
+[worldserver]
+
+#	binary 1 = true or enabled
+#		   0 = false or disabled
+#
+#		FlyingWhileDead.Enable = 1 (enabled), 0 (disabled)
+#
+#	FlyingWhileDead.MountModelid = Requires mount/creature model id (25511 = Deadly Gladiator's Frost Wyrm)
+#	FlyingWhileDead.DeadMountGroundSpeed = dead mount ground speed in float value (2.0 = 100% ground speed)
+#	FlyingWhileDead.DeadMountFlyingSpeed = dead mount flying speed in float value (4.1 = 310% flying speed)
+#	FlyingWhileDead.EnableDeadMountFlight = 0 (disabled) (Perhaps if you want to add a ground mount)
+#	FlyingWhileDead.EnableInBattleground = 1 (enabled in Battlegound)
+#	FlyingWhileDead.EnableInArena = 1 (enabled in Arena)
+#	
+#	FlyingWhileDead.Disable.InAreas = "10 (Duskwood), 17 (The Barrens)" (area ids can be found in AreaTable.dbc)
+#					List of Area ids with delimiter ','
+#
+#	FlyingWhileDead.PlayerMinLevel = 1 (default)
+#					enabled for level, if player level is greater or equal to PlayerMinLevel
+#
+#
+
+FlyingWhileDead.Enable = 1
+FlyingWhileDead.Alliance.MountModelid = 25511
+FlyingWhileDead.Horde.MountModelid = 25511
+FlyingWhileDead.DeadMountGroundSpeed = 2.0
+FlyingWhileDead.DeadMountFlyingSpeed = 4.1
+FlyingWhileDead.EnableDeadMountFlight = 1
+FlyingWhileDead.EnableInBattleground = 0
+FlyingWhileDead.EnableInArena = 0
+FlyingWhileDead.Disable.InAreas = "10,17"
+FlyingWhileDead.PlayerMinLevel = 1
+
