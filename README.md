@@ -4,7 +4,7 @@
 
 You have a few configs to change as you wish.
 
-Config Prewiew:
+Config Preview:
 ```c++
 FlyingWhileDead.Enable = 1
 FlyingWhileDead.Alliance.MountModelid = 25511
