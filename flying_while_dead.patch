@@ -1,0 +1,52 @@
+diff --git a/src/server/game/Entities/Player/Player.cpp b/src/server/game/Entities/Player/Player.cpp
+index 19c01752..b9a15391 100644
+--- a/src/server/game/Entities/Player/Player.cpp
++++ b/src/server/game/Entities/Player/Player.cpp
+@@ -5192,6 +5192,8 @@ void Player::ResurrectPlayer(float restore_percent, bool applySickness)
+     data << float(0);
+     data << float(0);
+     GetSession()->SendPacket(&data);
++	
++	sScriptMgr->OnBeforeResurrectPlayer_(this, restore_percent, applySickness); // mindsear
+ 
+     // speed change, land walk
+ 
+diff --git a/src/server/game/Scripting/ScriptMgr.cpp b/src/server/game/Scripting/ScriptMgr.cpp
+index d6df4b70..b628e9a1 100644
+--- a/src/server/game/Scripting/ScriptMgr.cpp
++++ b/src/server/game/Scripting/ScriptMgr.cpp
+@@ -1560,6 +1560,12 @@ void ScriptMgr::OnBeforePlayerUpdate(Player* player, uint32 p_time)
+     FOREACH_SCRIPT(PlayerScript)->OnBeforeUpdate(player, p_time);
+ }
+ 
++// mindsear
++void ScriptMgr::OnBeforeResurrectPlayer_(Player* player, float restore_percent, bool applySickness)
++{
++    FOREACH_SCRIPT(PlayerScript)->OnBeforeResurrectPlayer(player, restore_percent, applySickness);
++}
++
+ void ScriptMgr::OnPlayerLogin(Player* player)
+ {
+ #ifdef ELUNA
+diff --git a/src/server/game/Scripting/ScriptMgr.h b/src/server/game/Scripting/ScriptMgr.h
+index effa5330..2c7ce147 100644
+--- a/src/server/game/Scripting/ScriptMgr.h
++++ b/src/server/game/Scripting/ScriptMgr.h
+@@ -805,6 +805,9 @@ class PlayerScript : public ScriptObject
+ 
+         // Called for player::update
+         virtual void OnBeforeUpdate(Player* /*player*/, uint32 /*p_time*/){ }
++		
++		// Called for Player::ResurrectPlayer // mindsear
++        virtual void OnBeforeResurrectPlayer(Player* /*player*/, float /*restore_percent*/, bool /*applySickness*/) { }
+ 
+         // Called when a player's money is modified (before the modification is done)
+         virtual void OnMoneyChanged(Player* /*player*/, int32& /*amount*/) { }
+@@ -1331,6 +1334,7 @@ class ScriptMgr
+ 
+ 
+         void OnBeforePlayerUpdate(Player* player, uint32 p_time);
++		void OnBeforeResurrectPlayer_(Player* player, float restore_percent, bool applySickness); // mindsear
+         void OnPlayerReleasedGhost(Player* player);
+         void OnPVPKill(Player* killer, Player* killed);
+         void OnCreatureKill(Player* killer, Creature* killed);
